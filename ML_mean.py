@@ -9,17 +9,18 @@ from sklearn.metrics import accuracy_score, classification_report, confusion_mat
 
 train_path = os.path.join("dataset","train")
 test_path = os.path.join("dataset","test")
+num_cluster = 500
 
 # get the SIFT from training dataset
 train_descriptors = SIFT(train_path)
 test_descriptors = SIFT(test_path)
 
 #create the vocb
-kmeans = k_means(train_descriptors)
+kmeans = k_means(train_descriptors, num_cluster)
 
 #get bow of train and test
-x_train, y_train = Bow(train_descriptors, kmeans)
-x_test, y_test = Bow(test_descriptors, kmeans)
+x_train, y_train = Bow(train_descriptors, kmeans, num_cluster)
+x_test, y_test = Bow(test_descriptors, kmeans, num_cluster)
 
 #scale train to standard
 scaler = StandardScaler()
