@@ -5,7 +5,7 @@ from k_means_vocb import k_means
 from Bow import Bow
 from sklearn.svm import SVC
 from sklearn.preprocessing import StandardScaler
-from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+from evaluate import evaluate_model
 
 train_path = os.path.join("dataset","train")
 test_path = os.path.join("dataset","test")
@@ -34,10 +34,4 @@ clf.fit(x_train, y_train)
 #validation
 y_pred = clf.predict(x_test)
 
-acc = accuracy_score(y_test, y_pred)
-cp = classification_report(y_test, y_pred)
-cm = confusion_matrix(y_test,y_pred)
-
-print(f"accuracy:{acc}")
-print(f"Classification Report:{cp}")
-print(f"Confusion Matrix:{cm}")
+evaluate_model(y_test,y_pred,"Machine Learning")

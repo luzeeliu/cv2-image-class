@@ -5,6 +5,7 @@ from torch.optim import Adam
 from torch.utils.data import DataLoader
 from CNN_model import CONV_ResNet
 from CNN_image_process import get_dataloader, transform
+from evaluate import evaluate_model
 
 def train_one_epoch(model, dataloader, optimizer, loss_func, device):
     model.train()
@@ -35,18 +36,23 @@ def train_one_epoch(model, dataloader, optimizer, loss_func, device):
 def validation(model, dataloader, loss_func, device):
     model.eval()
     total_loss, correct = 0, 0
+    all_preds = []
+    all_class = []
     with torch.no_grad():
         for image, label in dataloader:
             image = image.to(device)
             label = label.to(device)
             
             output = model(image)
+            preds = output.argmax(1)
+            all_preds.extend(preds.cpu().numpy())
+            all_class.extend(label.cpu().numpy())
             loss = loss_func(output, label)
             
             total_loss += loss.item() * image.size(0)
-            correct += (output.argmax(1) == label).sum().item()
+            correct += (preds == label).sum().item()
             
-    return total_loss / len(dataloader.dataset), correct / len(dataloader.dataset)
+    return total_loss / len(dataloader.dataset), correct / len(dataloader.dataset), all_preds, all_class
 
 if __name__ == "__main__":
     # base value
@@ -75,9 +81,11 @@ if __name__ == "__main__":
     #set epoch
     for epoch in range(epochs):
         train_loss, train_acc = train_one_epoch(model, train_loader,optimizer, loss_func, device)
-        val_loss, val_acc = validation(model,val_loader, loss_func, device)
+        val_loss, val_acc,_,_ = validation(model,val_loader, loss_func, device)
         print(f"Epoch {epoch+1}/{epochs} | Train Loss: {train_loss:.4f} Acc: {train_acc:.4f} | Val Loss: {val_loss:.4f} Acc: {val_acc:.4f}")
-      
+    
+    _, _, preds, label = validation(model,val_loader, loss_func, device)
+    evaluate_model(label, preds, "ResNet CNN")
     torch.save(model.state_dict(), save_path)
     print("model saved")
         
