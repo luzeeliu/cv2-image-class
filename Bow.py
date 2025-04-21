@@ -5,7 +5,7 @@ def compute_bow_histogram(descriptor, kmeans, num_cluster = 200):
     # get vs vocab and get shape
     histogram =  np.zeros(num_cluster)
     if descriptor is not None:
-        # predict whcih cluster each SIFT descriptor belong to 
+        # predict cluster each SIFT descriptor belong to 
         # count how many items each cluster appears create histogram
         words = kmeans.predict(descriptor)
         for word in words:

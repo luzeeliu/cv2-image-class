@@ -3,6 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torchvision.models as models
 
+# classcial CNN model design
 class CONV(nn.Module):
     # inherited nn model from torch
     def __init__(self, input_channels, num_classes):
