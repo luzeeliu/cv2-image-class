@@ -24,5 +24,6 @@ c)	Hyperparameters
 
 •	MiniBatchKMeans Batch Size: 4096
 
+# advanced method is in the floder named advanced
 
 Through a review of existing research, it is obvious that deep learning approaches have achieved substantial progress in remote sensing image classification, but drawbacks persist in deployment. For instance, class imbalance, interpretability issues, and reliance on labelled data are the most significantly obstacles. Hence, this study proposes integrating traditional image feature extraction methods with deep learning techniques to address shortcomings and also enhance robustness and accuracy in practical applications.
