@@ -1,15 +1,27 @@
 # cv2-image-class
+
 a)	Environment
+
 •	Python Version: 3.10
+
 •	OpenCV Version: 4.8
+
 •	Scikit-learn Version: 1.3
+
 •	Execution Platform: PyCharm + Anaconda (CPU only)
+
 b)	Dataset
+
 •	Dataset Used: SkyView Dataset (15 categories)
+
 •	Image Size: Resized to 256×256 for faster computation
+
 c)	Hyperparameters
+
 •	Number of Clusters (Visual Words): 500
+
 •	SIFT Descriptor Dimension: 128
+
 •	MiniBatchKMeans Batch Size: 4096
 
 
